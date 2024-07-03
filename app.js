@@ -51,6 +51,9 @@ app.use('/api/v1/product', productRouter)
 // Static Route
 app.use('/', checkAuth, staticRouter)
 app.use('/seller', checkSellerAuth, sellerStaticRouter)
+app.use('*', (req, res) => {
+    res.render("page404")
+})
 
 // Global Error handler
 app.use(globalErrorHandler)

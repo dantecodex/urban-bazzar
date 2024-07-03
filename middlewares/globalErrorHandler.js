@@ -19,10 +19,7 @@ const duplicateKeyErrorHandler = (error) => {
 
 const prodError = (error, res) => {
     if (error.isOperational) {
-        res.status(error.statusCode).json({
-            status: error.status,
-            message: error.message
-        })
+        res.status(error.statusCode).send(error.message)
     }
     else {
         res.status(500).json({
