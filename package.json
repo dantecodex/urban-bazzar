@@ -1,0 +1,40 @@
+{
+  "name": "e-commerce-platform",
+  "version": "1.0.0",
+  "description": "E-commerce platform",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "SET ENVI=dev& nodemon server.js",
+    "prod": "SET ENVI=prod& nodemon server.js",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "e-commerce",
+    "mongodb"
+  ],
+  "author": "Anshul Rajput",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cloudinary": "^2.2.0",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-mongo-sanitize": "^2.2.0",
+    "express-rate-limit": "^7.3.1",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.4.1",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.14",
+    "validator": "^13.12.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.3"
+  }
+}

@@ -1,0 +1,15 @@
+ENVI = (prod or dev)
+PORT = 6969
+CONN_STR = (MongoDB connection string)
+JWT_SECRET = (Put Your data)
+EXPIRE_TIME = (Put Your data)
+
+CLOUDINARY_CLOUD_NAME = (Put Your data)
+CLOUDINARY_API_KEY = (Put Your data)
+CLOUDINARY_API_SECRET = (Put Your data)
+
+EMAIL_HOST = (Put Your data)
+EMAIL_PORT = (Put Your data)
+EMAIL_USER = (Put Your data)
+EMAIL_PASS = (Put Your data)
+EMAIL_FROM = (Put Your data)

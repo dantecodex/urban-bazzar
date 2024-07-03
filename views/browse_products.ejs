@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>Urban Bazaar</title>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg border border-bottom-1">
+        <div class="container-fluid m-md-1">
+
+            <div>
+                <a class="navbar-brand fw-bold" href="/">Urban Bazzar</a>
+            </div>
+            <div class="">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="browse-products">Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <% if (user) { %>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <% if (user.cart) { %>
+                                <li class="nav-item">
+                                    <a class="nav-link active btn btn-dark text-light" href="/cart">
+                                        <i class="bi bi-bag"></i> <span id="cartQuantity">
+                                            <%= user.cart.totalQuantity %>
+                                        </span>
+                                    </a>
+                                </li>
+                                <% } else { %>
+                                    <li class="nav-item">
+                                        <a class="nav-link active btn btn-dark text-light" href="/cart">
+                                            <i class="bi bi-bag"></i> 0
+                                        </a>
+                                    </li>
+                                    <% } %>
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"
+                                                href="#" role="button" aria-expanded="false">
+                                                <%= user.name %>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="/order-history">Order History</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/api/v1/userAuth/logout"> Logout </a>
+                                        </li>
+
+                        </ul>
+                    </div>
+                    <% } else { %>
+                        <a class="btn btn-outline-dark" href="/login">Login</a>
+                        <a class="ms-md-2 btn btn-outline-dark" href="/signup">Sign Up</a>
+                        <% } %>
+
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+            </div>
+        </div>
+    </nav>
+
+
+    <% if (products.length) { %>
+        <div class="container">
+            <section style="background-color: #eee;">
+                <div class="container py-5">
+                    <% products.forEach(product=> { %>
+                        <div class="row justify-content-center mb-3">
+                            <div class="col-md-12 col-xl-10">
+                                <div class="card shadow-0 border rounded-3">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
+                                                <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                                                    <img src="<%= product.productImage %>" class=""
+                                                        style="width: 250px; height: 200px; object-fit: contain;" />
+                                                    <a href="#!">
+                                                        <div class="hover-overlay">
+                                                            <div class="mask"
+                                                                style="background-color: rgba(253, 253, 253, 0.15);">
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-lg-6 col-xl-6">
+                                                <h5>
+                                                    <%= product.name %>
+                                                </h5>
+                                                <div class="d-flex flex-row">
+                                                    <div class="text-danger mb-1 me-2">
+                                                        <% if (product.avgRating) { %>
+                                                            <% for (let index=0; index < Math.floor(product.avgRating);
+                                                                index++) { %>
+                                                                <i class="bi bi-star-fill"></i>
+                                                                <% } %>
+                                                                    <% if (product.avgRating % 1 !==0) { %>
+                                                                        <i class="bi bi-star-half"></i>
+                                                                        <% } %>
+                                                                            <% for (let
+                                                                                index=Math.ceil(product.avgRating);
+                                                                                index < 5; index++) { %>
+                                                                                <i class="bi bi-star"></i>
+                                                                                <% } %>
+                                                                                    <% } else { %>
+                                                                                        <% for (let index=0; index < 5;
+                                                                                            index++) { %>
+                                                                                            <i class="bi bi-star"></i>
+                                                                                            <% } %>
+                                                                                                <% } %>
+
+
+                                                    </div>
+
+                                                    <span>
+                                                        <%= product.ratings.length %>
+
+                                                    </span>
+                                                </div>
+                                                <p class="text-truncate mb-4 mb-md-0">
+                                                    <b>Category:</b>
+                                                    <%= product.category %>
+                                                </p>
+                                                <p class="text-truncate mb-4 mb-md-0">
+                                                    <b>Stock quantity:</b>
+                                                    <%= product.stockQuantity %>
+                                                </p>
+                                                <p class="text-truncate mb-4 mb-md-0">
+                                                    <%= product.description %>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
+                                                <div class="d-flex flex-row align-items-center mb-1">
+                                                    <h4 class="mb-1 me-1">$<%= product.price %>
+                                                    </h4>
+
+                                                </div>
+                                                <h6 class="text-success">Free shipping</h6>
+                                                <div class="d-flex flex-column mt-4">
+                                                    <% if (user) { %>
+                                                        <form id="addToCartForm_<%= product._id %> ">
+                                                            <input type="hidden" name="userID" value="<%= user._id %>">
+                                                            <input type="hidden" name="productID"
+                                                                value="<%= product._id %>">
+                                                            <div class="d-flex justify-content-between">
+                                                                <select class="form-select w-50"
+                                                                    aria-label="Default select example" name="quantity">
+                                                                    <% for( let index=1; index <=product.stockQuantity;
+                                                                        index++ ) { %>
+                                                                        <option value="<%= index %>">
+                                                                            <%= index %>
+                                                                        </option>
+                                                                        <% if (index==5) { %>
+                                                                            <% break %>
+                                                                                <% } %>
+                                                                                    <% } %>
+                                                                </select>
+                                                                <button class="btn btn-dark text-center" type="submit">
+                                                                    Add to cart
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                        <% if (user?.cart?.items?.length) { %>
+                                                            <a class="btn btn-dark mt-4" href="/cart">Go to
+                                                                Cart</a>
+                                                            <% } %>
+                                                                <% } else { %>
+                                                                    <a class="btn btn-dark" href="/login">Log in to
+                                                                        pruchase</a>
+                                                                    <% } %>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <% }) %>
+                </div>
+            </section>
+        </div>
+        <% } else { %>
+            <div class="d-flex justify-content-center mt-3 w-50 m-auto border border-3 p-3">
+                <div class="text-center">
+                    <p class="display-6">There no active products</p>
+                </div>
+            </div>
+            <% } %>
+
+
+
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+                    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+                    crossorigin="anonymous"></script>
+                <script src="/script/browse_products.js"></script>
+
+</body>
+
+</html>
